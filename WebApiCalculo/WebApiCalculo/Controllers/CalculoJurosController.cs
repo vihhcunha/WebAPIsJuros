@@ -26,7 +26,7 @@ namespace WebApiCalculo.Controllers
         {
             try
             {
-                var juros = await _consumoAPI.Get(_configuration.GetSection("BaseURLWebApiJuros").Value + "taxaJuros");
+                var juros = await _consumoAPI.Get(_configuration.GetSection("BaseURLWebApiJuros").Value + "taxajuros");
 
                 var calculoJuros = new CalculoJuros.Domain.Entities.CalculoJuros(valorInicial, tempoEmMeses, juros);
                 return Ok(calculoJuros.CalcularValorFinal());
