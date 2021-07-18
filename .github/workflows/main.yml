@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: index.docker.io/${{ secrets.ContainerUserName }}//webapicalculo:${{ github.sha }}
+          tags: index.docker.io/${{ secrets.ContainerUserName }}/webapicalculo:${{ github.sha }}
           file: ./WebApiCalculo/WebApiCalculo/Dockerfile
           
   CD:
