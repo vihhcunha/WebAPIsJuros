@@ -31,9 +31,9 @@ namespace WebApiCalculo.Controllers
                 var calculoJuros = new CalculoJuros.Domain.Entities.CalculoJuros(valorInicial, tempoEmMeses, juros);
                 return Ok(calculoJuros.CalcularValorFinal());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "Algo deu errado!");
+                return StatusCode(500, ex.Message);
             }
             
         }
