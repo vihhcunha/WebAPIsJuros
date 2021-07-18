@@ -23,12 +23,19 @@ jobs:
           username: ${{ secrets.ContainerUserName }}
           password: ${{ secrets.ContainerPassword }}
         
-      - name: Build and push container image to registry
+      - name: Build and push container image to registry - WebApiCalculo
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: index.docker.io/${{ secrets.ContainerUserName }}/webapicalculo:${{ github.sha }}
           file: ./WebApiCalculo/WebApiCalculo/Dockerfile
+          
+      - name: Build and push container image to registry - WebApiJuros
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: index.docker.io/${{ secrets.ContainerUserName }}/webapijuros:${{ github.sha }}
+          file: ./WebApiJuros/WebApiJuros/Dockerfile
           
   CD:
     runs-on: ubuntu-latest
@@ -37,7 +44,7 @@ jobs:
       name: 'production'
       
     steps:
-    - name: Deploy to Azure WebAPP
+    - name: Deploy to Azure WebAPP - WebApiCalculo
       id: deploy-webapicalculo
       uses: azure/webapps-deploy@v2
       with: 
@@ -45,4 +52,13 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureWebApiCalculoPublishProfile }}
         images: 'index.docker.io/${{ secrets.ContainerUserName }}/webapicalculo:${{ github.sha }}'
+        
+    - name: Deploy to Azure WebAPP - WebApiJuros
+      id: deploy-webapijuros
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: 'WebApiJuros'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureWebApiJurosPublishProfile }}
+        images: 'index.docker.io/${{ secrets.ContainerUserName }}/webapijuros:${{ github.sha }}'
 
