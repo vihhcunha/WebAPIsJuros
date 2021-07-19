@@ -10,6 +10,7 @@ COPY ["Domain/CalculoJuros.Domain/CalculoJuros.Domain.csproj", "Domain/CalculoJu
 COPY ["CrossCutting/CrossCutting.ConsumoAPI/CrossCutting.ConsumoAPI.csproj", "CrossCutting/CrossCutting.ConsumoAPI/"]
 RUN dotnet restore "./WebApiCalculo/WebApiCalculo.csproj"
 COPY . .
+RUN dotnet build -c Release --no-restore
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
